@@ -1,15 +1,19 @@
 cmake_minimum_required(VERSION 3.9)
-# Compiler flags
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /EHsc" CACHE INTERNAL "" FORCE)
-elseif(APPLE)
-    message("hello apple")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9 CACHE STRING "")
-endif()
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 project(CA3)
+
+file(GLOB_RECURSE SOURCES src/*.cpp src/*.h)
+file(GLOB_RECURSE CMPNTS src/components/*.cpp src/components/*.h)
+file(GLOB_RECURSE SCNS src/scenes/*.cpp src/scenes/*.h)
+add_executable(CA3 ${SOURCES} ${RESOURCE_FILES})
+source_group("components" FILES ${CMPNTS})
+source_group("resources" FILES ${RESOURCE_FILES})
+target_link_libraries(CA3 lib_engine)
+set(EXECUTABLES ${EXECUTABLES} CA3)
+add_dependencies(CA3 copy_resources)
+set_target_properties(CA3
+        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+        )
 
 #### setup Directories ####
 #Main output directory
@@ -24,6 +28,7 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
         )
 
 #### Add External Dependencies ####
+
 # SFML - graphics library
 add_subdirectory("lib/sfml" EXCLUDE_FROM_ALL)
 #include_directories("lib/sfml/include")
@@ -62,28 +67,6 @@ add_library(lib_ecm STATIC ${SOURCE_FILES})
 target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
 target_link_libraries(lib_ecm PRIVATE lib_maths)
 
-#### Add Practical Projects####
-
-#@@@-
-
-## 6 - Platformer
-file(GLOB_RECURSE SOURCES lab_7_platformer/*.cpp practical_6_platformer/*.h)
-file(GLOB_RECURSE CMPNTS lab_7_platformer/components/*.cpp practical_6_platformer/components/*.h)
-file(GLOB_RECURSE SCENES lab_7_platformer/scenes/*.cpp practical_6_platformer/scenes/*.h)
-add_executable(PRACTICAL_7_PLATFORMER ${SOURCES} ${RESOURCE_FILES})
-source_group("components" FILES ${CMPNTS})
-source_group("resources" FILES ${RESOURCE_FILES})
-#target_include_directories(PRACTICAL_6_PLATFORMER SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
-target_link_libraries(PRACTICAL_7_PLATFORMER lib_engine)
-set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
-
-add_dependencies(PRACTICAL_7_PLATFORMER copy_resources)
-
-set_target_properties(PRACTICAL_7_PLATFORMER
-        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
-        )
-
 foreach(exe ${EXECUTABLES})
     set_target_properties(${exe} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
@@ -96,4 +79,12 @@ foreach(exe ${EXECUTABLES})
             $<TARGET_FILE_DIR:${exe}>)
 endforeach()
 
-#@@@-
+# Compiler flags
+if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /EHsc" CACHE INTERNAL "" FORCE)
+elseif(APPLE)
+    message("hello apple")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9 CACHE STRING "")
+endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
