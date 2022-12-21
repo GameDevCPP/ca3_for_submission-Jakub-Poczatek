@@ -71,14 +71,13 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
-
-  if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
-    Engine::ChangeScene((Scene*)&level2);
-  }
   sf::View view(sf::FloatRect({0.f, 0.f}, {500.f, 350}));
   view.setCenter({player->getPosition().x, player->getPosition().y});
   Engine::GetWindow().setView(view);
   Scene::Update(dt);
+    if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
+        Engine::ChangeScene((Scene*)&level2);
+    }
 }
 
 void Level1Scene::Render() {

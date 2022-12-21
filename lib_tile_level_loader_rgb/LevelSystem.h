@@ -22,8 +22,10 @@ public:
         EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(), // White
         START = sf::Color(0.f, 0.f, 255.f).toInteger(),     // Blue
         WALL = sf::Color(0.f, 255.f, 0.f).toInteger(),      // Green
+        END = sf::Color(255.f, 0.f, 0.f).toInteger(),       // Red
         KEY = sf::Color(255.f, 255.f, 0.f).toInteger(),     // Yellow
-        END = sf::Color(255.f, 0.f, 0.f).toInteger()        // Red
+        GENEMY = sf::Color(255.f, 0.f, 255.f).toInteger(),  // Pink
+        TENEMY = sf::Color(0.f, 255.f, 255.f).toInteger(),  // Aqua
     };
 
     static Tile getTile(sf::Vector2ul);
