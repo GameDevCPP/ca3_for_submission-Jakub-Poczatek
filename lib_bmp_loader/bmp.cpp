@@ -61,12 +61,6 @@ uint32_t BMP::makeStrideAligned(uint32_t alignStride){
 }
 
 void BMP::setColouredPixels(){
-    /*for(int i = _data.size()-1; i >= 0; i-=3){
-        _colouredPixels.emplace_back(sf::Color(
-                    _data[i], _data[i-1], _data[i-2]
-                ));
-    }*/
-
     for (int i = getHeight()*3 - 3; i >= 0; i-=3){
         for (int j = 0; j < getWidth()*3; j+=3){
             _colouredPixels.emplace_back(sf::Color(

@@ -38,10 +38,10 @@ void PlayerPhysicsComponent::update(double dt) {
     teleport(ls::getTilePosition(ls::findTiles(sf::Color(ls::START))[0]));
   }
 
-  if (Keyboard::isKeyPressed(Keyboard::Left) ||
-      Keyboard::isKeyPressed(Keyboard::Right)) {
+  if (Keyboard::isKeyPressed(Keyboard::A) ||
+      Keyboard::isKeyPressed(Keyboard::D)) {
     // Moving Either Left or Right
-    if (Keyboard::isKeyPressed(Keyboard::Right)) {
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
       if (getVelocity().x < _maxVelocity.x)
         impulse({(float)(dt * _groundspeed), 0});
     } else {
@@ -54,12 +54,12 @@ void PlayerPhysicsComponent::update(double dt) {
   }
 
   // Handle Jump
-  if (Keyboard::isKeyPressed(Keyboard::Up)) {
+  if (Keyboard::isKeyPressed(Keyboard::W)) {
     _grounded = isGrounded();
     if (_grounded) {
       setVelocity(Vector2f(getVelocity().x, 0.f));
       teleport(Vector2f(pos.x, pos.y - 2.0f));
-      impulse(Vector2f(0, -6.f));
+      impulse(Vector2f(0, _jumpHeight));
     }
   }
 
@@ -70,7 +70,7 @@ void PlayerPhysicsComponent::update(double dt) {
     // disable friction while jumping
     setFriction(0.f);
   } else {
-    setFriction(0.1f);
+    setFriction(0.5f);
   }
 
   // Clamp velocity.
@@ -89,6 +89,8 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p,
   _maxVelocity = Vector2f(200.f, 400.f);
   _groundspeed = 30.f;
   _grounded = false;
+  _jumpHeight = -10.f;
+  setRestitution(0.f);
   _body->SetSleepingAllowed(false);
   _body->SetFixedRotation(true);
   //Bullet items have higher-res collision detection

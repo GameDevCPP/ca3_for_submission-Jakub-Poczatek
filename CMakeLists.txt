@@ -55,12 +55,6 @@ add_library(lib_maths INTERFACE)
 target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths/maths.h")
 target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" INTERFACE ${SFML_INCS})
 
-## Tile loader lib
-file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
-add_library(lib_tile_level_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
-target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
-target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
-
 ## RGB tile loader lib ##
 file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader_rgb/*.cpp lib_tile_level_loader_rgb/*.h)
 add_library(lib_tile_level_loader_rgb STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
