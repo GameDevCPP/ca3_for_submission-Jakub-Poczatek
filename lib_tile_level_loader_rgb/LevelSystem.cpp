@@ -38,7 +38,7 @@ void LevelSystem::buildSprites(bool optimise) {
     for (size_t y = 0; y < _height; ++y) {
         for (size_t x = 0; x < _width; ++x){
             Tile t = getTile({x, y});
-            if (t.toInteger() == EMPTY) {
+            if ((t.toInteger() != WALL) && (t.toInteger() != END)) {
                 continue;
             }
             tps.push_back({getTilePosition({x, y}), tls, t});

@@ -19,9 +19,11 @@ public:
     typedef sf::Color Tile;
 
     enum TILES {
-        EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(), //White
-        START = sf::Color(0.f, 0.f, 255.f).toInteger(), //Blue
-        WALL = sf::Color(0.f, 255.f, 0.f).toInteger() //Green
+        EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(), // White
+        START = sf::Color(0.f, 0.f, 255.f).toInteger(),     // Blue
+        WALL = sf::Color(0.f, 255.f, 0.f).toInteger(),      // Green
+        KEY = sf::Color(255.f, 255.f, 0.f).toInteger(),     // Yellow
+        END = sf::Color(255.f, 0.f, 0.f).toInteger()        // Red
     };
 
     static Tile getTile(sf::Vector2ul);
