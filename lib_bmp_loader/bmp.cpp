@@ -61,10 +61,18 @@ uint32_t BMP::makeStrideAligned(uint32_t alignStride){
 }
 
 void BMP::setColouredPixels(){
-    for(int i = 0; i < _data.size(); i+=3){
+    /*for(int i = _data.size()-1; i >= 0; i-=3){
         _colouredPixels.emplace_back(sf::Color(
-                    _data[i+2], _data[i+1], _data[i]
+                    _data[i], _data[i-1], _data[i-2]
                 ));
+    }*/
+
+    for (int i = getHeight()*3 - 3; i >= 0; i-=3){
+        for (int j = 0; j < getWidth()*3; j+=3){
+            _colouredPixels.emplace_back(sf::Color(
+                    _data[i * getWidth() + j + 2], _data[i * getWidth() + j + 1], _data[i * getWidth() + j]
+            ));
+        }
     }
 }
 
@@ -81,43 +89,9 @@ sf::Color BMP::getColourAt(int pixelIndex){
 }
 
 int32_t BMP::getWidth(){
-    return _width;
+    return _infoHeader.width;
 }
 
 int32_t BMP::getHeight(){
-    return _height;
+    return _infoHeader.height;
 }
-
-/*void BMP::write(const char *fname) {
-    std::ofstream of{fname, std::ios_base::binary};
-    if(of) {
-        if(_infoHeader.bitCount == 24) {
-            if(_infoHeader.width % 4 == 0){
-                writeHeadersAndData(of);
-            } else {
-                uint32_t newStride = makeStrideAligned(4);
-                std::vector<uint8_t> paddingRow(newStride - _rowStride);
-                writeHeaders(of);
-
-                for (int y = 0; y < _infoHeader.height; ++y){
-                    of.write((const char*)(_data.data() + _rowStride * y), _rowStride);
-                    of.write((const char*)paddingRow.data(), paddingRow.size());
-                }
-            }
-        } else {
-            throw std::runtime_error("This program can treat only 24bpp BMP files");
-        }
-    } else {
-        throw std::runtime_error("Unable to open the output image file");
-    }
-}
-
-void BMP::writeHeadersAndData(std::ofstream &of) {
-    writeHeaders(of);
-    of.write((const char*)_data.data(), _data.size());
-}
-
-void BMP::writeHeaders(std::ofstream &of) {
-    of.write((const char*) &_fileHeader, sizeof(_fileHeader));
-    of.write((const char*) &_infoHeader, sizeof(_infoHeader));
-}*/

@@ -41,12 +41,9 @@ private:
     BMPInfoHeader _infoHeader;
     std::vector<uint8_t> _data;
     std::vector<sf::Color> _colouredPixels;
-    uint32_t _width, _height;
 
     uint32_t makeStrideAligned(uint32_t alignStride);
     void setColouredPixels();
-    //void writeHeadersAndData(std::ofstream &of);
-    //void writeHeaders(std::ofstream &of);
 
 public:
     BMP(const char *fname);
@@ -56,7 +53,6 @@ public:
     sf::Color getColourAt(int pixelIndex);
     int32_t getWidth();
     int32_t getHeight();
-    //void write(const char *fname);
 };
 
 // Reference:

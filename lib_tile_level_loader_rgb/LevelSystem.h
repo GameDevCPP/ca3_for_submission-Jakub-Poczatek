@@ -21,7 +21,7 @@ public:
     enum TILES {
         EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(), //White
         START = sf::Color(0.f, 0.f, 255.f).toInteger(), //Blue
-        WALL = sf::Color(0.f, 0.f, 0.f).toInteger() //Black
+        WALL = sf::Color(0.f, 255.f, 0.f).toInteger() //Green
     };
 
     static Tile getTile(sf::Vector2ul);
@@ -32,7 +32,7 @@ public:
     static sf::Vector2f getTilePosition(sf::Vector2ul);
     static std::vector<sf::Vector2ul> findTiles(Tile);
     static sf::Color getColor(Tile t);
-    static void setColor(Tile t, sf::Color c);
+    //static void setColor(Tile t, sf::Color c);
     static void setOffset(const sf::Vector2f& _offset);
     static const sf::Vector2f& getOffset();
     static float getTileSize();

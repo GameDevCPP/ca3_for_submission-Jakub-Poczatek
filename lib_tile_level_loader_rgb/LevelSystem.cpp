@@ -21,7 +21,7 @@ void LevelSystem::loadLevelFile(const char* path, float tileSize) {
     _tileSize = tileSize;
     _width = bmp.getWidth();
     _height = bmp.getHeight();
-    _tiles = std::make_unique<Tile[]>(_width * _height);
+    _tiles = std::make_unique<Tile[]>(bmp.getWidth() * bmp.getHeight());
     vector<sf::Color> colouredPixels = bmp.getColouredPixels();
     std::copy(colouredPixels.begin(), colouredPixels.end(), &_tiles[0]);
 }

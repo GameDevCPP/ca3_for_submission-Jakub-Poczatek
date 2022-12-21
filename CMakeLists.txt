@@ -7,7 +7,7 @@ file(GLOB_RECURSE SCNS src/scenes/*.cpp src/scenes/*.h)
 add_executable(CA3 ${SOURCES} ${RESOURCE_FILES})
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
-target_link_libraries(CA3 lib_engine lib_bmp_loader)
+target_link_libraries(CA3 lib_engine)
 set(EXECUTABLES ${EXECUTABLES} CA3)
 add_dependencies(CA3 copy_resources)
 set_target_properties(CA3
@@ -48,7 +48,7 @@ file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
 file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
 add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/" PUBLIC SYSTEM ${B2D_INCS} )
-target_link_libraries(lib_engine lib_tile_level_loader lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
+target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
 
 ## Maths lib
 add_library(lib_maths INTERFACE)
