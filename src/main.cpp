@@ -11,7 +11,7 @@ Level2Scene level2;
 Level3Scene level3;
 
 int main() {
-    Engine::Start(1000, 600, "CA3",&menu);
+    Engine::Start(1280, 720, "CA3",&menu);
 
     /*
     BMP bmp = BMP("../../res/Level1.bmp");

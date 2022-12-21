@@ -13,6 +13,7 @@ static shared_ptr<Entity> player;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
+
   ls::loadLevelFile("../../res/Level1.bmp", 40.0f);
 
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
@@ -61,6 +62,9 @@ void Level1Scene::Update(const double& dt) {
   //if (ls::getTileAt(player->getPosition()) == ls::END) {
   //  Engine::ChangeScene((Scene*)&level2);
   //}
+  sf::View view(sf::FloatRect({0.f, 0.f}, {500.f, 350}));
+  view.setCenter({player->getPosition().x, player->getPosition().y});
+  Engine::GetWindow().setView(view);
   Scene::Update(dt);
 }
 

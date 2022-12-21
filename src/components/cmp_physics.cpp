@@ -69,7 +69,9 @@ PhysicsComponent::PhysicsComponent(Entity* p, bool dyn,
 
 void PhysicsComponent::setFriction(float r) { _fixture->SetFriction(r); }
 
-void PhysicsComponent::setMass(float m) { _fixture->SetDensity(m); }
+void PhysicsComponent::setMass(float m) {
+    _fixture->SetDensity(m);
+}
 
 void PhysicsComponent::teleport(const sf::Vector2f& v) {
   _body->SetTransform(sv2_to_bv2(invert_height(v)), 0.0f);
