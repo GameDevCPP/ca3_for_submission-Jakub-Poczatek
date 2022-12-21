@@ -7,7 +7,7 @@ file(GLOB_RECURSE SCNS src/scenes/*.cpp src/scenes/*.h)
 add_executable(CA3 ${SOURCES} ${RESOURCE_FILES})
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
-target_link_libraries(CA3 lib_engine)
+target_link_libraries(CA3 lib_engine lib_bmp_loader)
 set(EXECUTABLES ${EXECUTABLES} CA3)
 add_dependencies(CA3 copy_resources)
 set_target_properties(CA3
@@ -60,6 +60,18 @@ file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader
 add_library(lib_tile_level_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
 target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
+
+## RGB tile loader lib ##
+file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader_rgb/*.cpp lib_tile_level_loader_rgb/*.h)
+add_library(lib_tile_level_loader_rgb STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_tile_level_loader_rgb INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader_rgb/" )
+target_link_libraries(lib_tile_level_loader_rgb lib_maths sfml-graphics lib_bmp_loader)
+
+## BMP image loader lib ##
+file(GLOB_RECURSE SOURCE_FILES lib_bmp_loader/*.cpp lib_bmp_loader/*.h)
+add_library(lib_bmp_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_bmp_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_bmp_loader/" )
+target_link_libraries(lib_bmp_loader lib_maths sfml-graphics)
 
 ## ECM lib
 file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
