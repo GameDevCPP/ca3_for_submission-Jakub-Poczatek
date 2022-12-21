@@ -48,7 +48,7 @@ file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
 file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
 add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/" PUBLIC SYSTEM ${B2D_INCS} )
-target_link_libraries(lib_engine lib_tile_level_loader lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
+target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
 
 ## Maths lib
 add_library(lib_maths INTERFACE)
@@ -60,6 +60,18 @@ file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader
 add_library(lib_tile_level_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
 target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
+
+## RGB tile loader lib ##
+file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader_rgb/*.cpp lib_tile_level_loader_rgb/*.h)
+add_library(lib_tile_level_loader_rgb STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_tile_level_loader_rgb INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader_rgb/" )
+target_link_libraries(lib_tile_level_loader_rgb lib_maths sfml-graphics lib_bmp_loader)
+
+## BMP image loader lib ##
+file(GLOB_RECURSE SOURCE_FILES lib_bmp_loader/*.cpp lib_bmp_loader/*.h)
+add_library(lib_bmp_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_bmp_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_bmp_loader/" )
+target_link_libraries(lib_bmp_loader lib_maths sfml-graphics)
 
 ## ECM lib
 file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)

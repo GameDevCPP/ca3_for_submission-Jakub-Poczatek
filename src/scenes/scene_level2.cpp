@@ -21,7 +21,7 @@ void Level2Scene::Load() {
   {
 
     player = makeEntity();
-    player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+    //player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
     s->getShape().setFillColor(Color::Magenta);
@@ -34,8 +34,8 @@ void Level2Scene::Load() {
   // Create Enemy
   {
     auto enemy = makeEntity();
-    enemy->setPosition(ls::getTilePosition(ls::findTiles(ls::ENEMY)[0]) +
-                       Vector2f(0, 24));
+    //enemy->setPosition(ls::getTilePosition(ls::findTiles(ls::ENEMY)[0]) +
+    //                   Vector2f(0, 24));
     // *********************************
     // Add HurtComponent
     // Add ShapeComponent, Red 16.f Circle
@@ -53,8 +53,8 @@ void Level2Scene::Load() {
   // Create Turret
   {
     auto turret = makeEntity();
-    turret->setPosition(ls::getTilePosition(ls::findTiles('t')[0]) +
-                        Vector2f(20, 0));
+    //turret->setPosition(ls::getTilePosition(ls::findTiles('t')[0]) +
+    //                    Vector2f(20, 0));
     auto s = turret->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(16.f, 3);
     s->getShape().setFillColor(Color::Red);
@@ -65,14 +65,14 @@ void Level2Scene::Load() {
   // Add physics colliders to level tiles.
   {
     // *********************************
-    auto walls = ls::findTiles(ls::WALL);
-    for (auto w: walls){
+    //auto walls = ls::findTiles(ls::WALL);
+    /*for (auto w: walls){
         auto pos = ls::getTilePosition(w);
         pos += Vector2f(20.f, 20.f);
         auto e = makeEntity();
         e->setPosition(pos);
         e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
-    }
+    }*/
     // *********************************
   }
   cout << " Scene 2 Load Done" << endl;
@@ -89,11 +89,11 @@ void Level2Scene::UnLoad() {
 void Level2Scene::Update(const double& dt) {
   Scene::Update(dt);
   const auto pp = player->getPosition();
-  if (ls::getTileAt(pp) == ls::END) {
+  /*if (ls::getTileAt(pp) == ls::END) {
     Engine::ChangeScene((Scene*)&level3);
   } else if (!player->isAlive()) {
     Engine::ChangeScene((Scene*)&level2);
-  }
+  }*/
 }
 
 void Level2Scene::Render() {

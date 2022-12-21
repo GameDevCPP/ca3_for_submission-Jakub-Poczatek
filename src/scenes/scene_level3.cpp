@@ -20,7 +20,7 @@ void Level3Scene::Load() {
   {
     // *********************************
       player = makeEntity();
-      player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+      //player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
       auto s = player->addComponent<ShapeComponent>();
       s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
       s->getShape().setFillColor(Color::Magenta);
@@ -33,14 +33,14 @@ void Level3Scene::Load() {
   // Add physics colliders to level tiles.
   {
     // *********************************
-      auto walls = ls::findTiles(ls::WALL);
-      for (auto w : walls) {
+      ///auto walls = ls::findTiles(ls::WALL);
+      /*for (auto w : walls) {
           auto pos = ls::getTilePosition(w);
           pos += Vector2f(20.f, 20.f); //offset to center
           auto e = makeEntity();
           e->setPosition(pos);
           e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
-      }
+      }*/
     // *********************************
   }
 
@@ -60,11 +60,11 @@ void Level3Scene::UnLoad() {
 void Level3Scene::Update(const double& dt) {
   Scene::Update(dt);
   const auto pp = player->getPosition();
-  if (ls::getTileAt(pp) == ls::END) {
+  /*if (ls::getTileAt(pp) == ls::END) {
     Engine::ChangeScene((Scene*)&level1);
   } else if (!player->isAlive()) {
     Engine::ChangeScene((Scene*)&level3);
-  }
+  }*/
 
   static float rocktime = 0.0f;
   rocktime -= dt;
@@ -72,8 +72,8 @@ void Level3Scene::Update(const double& dt) {
   if (rocktime <= 0.f){
     rocktime  = 5.f;
     auto rock = makeEntity();
-    rock->setPosition(ls::getTilePosition(ls::findTiles('r')[0]) +
-                      Vector2f(0, 40) );
+    //rock->setPosition(ls::getTilePosition(ls::findTiles('r')[0]) +
+    //                  Vector2f(0, 40) );
     rock->addComponent<BulletComponent>(30.f);
     auto s = rock->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(40.f);

@@ -13,7 +13,7 @@ static shared_ptr<Entity> player;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
-  ls::loadLevelFile("res/level_1.txt", 40.0f);
+  ls::loadLevelFile("../../res/Level1.bmp", 40.0f);
 
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
   ls::setOffset(Vector2f(0, ho));
@@ -21,7 +21,7 @@ void Level1Scene::Load() {
   // Create player
   {
     player = makeEntity();
-    player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+    player->setPosition(ls::getTilePosition(ls::findTiles(sf::Color(ls::START))[0]));
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
     s->getShape().setFillColor(Color::Magenta);
@@ -32,7 +32,7 @@ void Level1Scene::Load() {
 
   // Add physics colliders to level tiles.
   {
-    auto walls = ls::findTiles(ls::WALL);
+    auto walls = ls::findTiles(sf::Color(ls::WALL));
     for (auto w : walls) {
       auto pos = ls::getTilePosition(w);
       pos += Vector2f(20.f, 20.f); //offset to center
@@ -58,9 +58,9 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 
-  if (ls::getTileAt(player->getPosition()) == ls::END) {
-    Engine::ChangeScene((Scene*)&level2);
-  }
+  //if (ls::getTileAt(player->getPosition()) == ls::END) {
+  //  Engine::ChangeScene((Scene*)&level2);
+  //}
   Scene::Update(dt);
 }
 
