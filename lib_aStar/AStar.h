@@ -69,7 +69,7 @@ private:
 
 public:
     struct SquareGrid{
-        static std::array<GridLocation, 4> DIRS;
+        static std::array<GridLocation, 8> DIRS;
         int _width, _height;
         std::unordered_set<GridLocation> _walls;
 

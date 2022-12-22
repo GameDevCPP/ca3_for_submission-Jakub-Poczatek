@@ -59,7 +59,7 @@ void Level2Scene::Load() {
         s->setShape<sf::CircleShape>(16.f);
         s->getShape().setFillColor(Color::Red);
         s->getShape().setOrigin(Vector2f(16.f, 16.f));
-        enemy->addComponent<EnemyAIComponent>();
+        enemy->addComponent<EnemyAStarComponent>();
         enemies.push_back(enemy);
     }
 

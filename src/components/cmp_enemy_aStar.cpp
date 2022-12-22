@@ -35,8 +35,8 @@ void EnemyAStarComponent::update(double dt) {
     }
 
     if(_dtCounter > 0.5){
-    calculatePath();
-    _dtCounter = 0;
+        calculatePath();
+        _dtCounter = 0;
     }
 }
 
@@ -64,7 +64,7 @@ void EnemyAStarComponent::calculatePath() {
 }
 
 EnemyAStarComponent::EnemyAStarComponent(Entity *p) :
-        ActorMovementComponent(p), _grid(makeGrid()), _speed(250.f),
+        ActorMovementComponent(p), _grid(makeGrid()), _speed(100.f),
         _direction(1, 1), _pathCounter(0),
         _player(_parent->scene->ents.find("player")[0]), _dtCounter(0){
     calculatePath();

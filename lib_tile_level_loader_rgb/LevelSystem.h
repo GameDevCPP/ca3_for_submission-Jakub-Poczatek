@@ -26,6 +26,7 @@ public:
         KEY = sf::Color(255.f, 255.f, 0.f).toInteger(),     // Yellow
         GENEMY = sf::Color(255.f, 0.f, 255.f).toInteger(),  // Pink
         TENEMY = sf::Color(0.f, 255.f, 255.f).toInteger(),  // Aqua
+        FENEMY = sf::Color(125.f, 125.f, 255.f).toInteger(),  // Purple
     };
 
     static Tile getTile(sf::Vector2ul);
