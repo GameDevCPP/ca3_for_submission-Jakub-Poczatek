@@ -1,12 +1,12 @@
 #pragma once
 #include "cmp_actor_movement.h"
-#include "temp.h"
 #include "LevelSystem.h"
+#include "AStar.h"
 
 class EnemyAStarComponent: public ActorMovementComponent {
 protected:
     float _speed;
-    GridWithWeights _grid;
+    AStar::GridWithWeights _grid;
     std::vector<GridLocation> _path;
     int _pathCounter;
     sf::Vector2f _direction;
@@ -14,17 +14,18 @@ protected:
     std::weak_ptr<Entity> _player;
 
 
-    GridWithWeights makeGrid(){
-        GridWithWeights grid(ls::getWidth(), ls::getHeight());
+    static AStar::GridWithWeights makeGrid(){
+        AStar::GridWithWeights grid(ls::getWidth(), ls::getHeight());
         populateWalls(grid);
         return grid;
     }
 
-    void populateWalls(SquareGrid& grid){
+    static void populateWalls(AStar::SquareGrid& grid){
         auto walls = ls::findTiles(sf::Color(ls::WALL));
         for (auto w: walls) {
-            grid.walls.insert(GridLocation{
-                static_cast<int>(w.x), static_cast<int>(w.y)});
+            grid._walls.insert({1, 1});
+            /*grid._walls.insert(GridLocation{
+                static_cast<int>(w.x), static_cast<int>(w.y)});*/
         }
     }
 
@@ -46,7 +47,7 @@ public:
             _pathCounter++;
         }
 
-        if(_dtCounter > 1){
+        if(_dtCounter > 0.5){
             calculatePath();
             _dtCounter = 0;
         }
@@ -70,8 +71,8 @@ public:
         GridLocation goal = {static_cast<int>(target.x), static_cast<int>(target.y)};
         std::unordered_map<GridLocation, GridLocation> came_from;
         std::unordered_map<GridLocation, double> cost_so_far;
-        a_star_search(_grid, start, goal, came_from, cost_so_far);
-        auto tempPath = reconstruct_path(start, goal, came_from);
+        AStar::aStarSearch(_grid, start, goal, came_from, cost_so_far);
+        auto tempPath = AStar::reconstructPath(start, goal, came_from);
         if(!tempPath.empty()) std::copy(tempPath.begin(), tempPath.end(), std::back_inserter(_path));
     }
 
