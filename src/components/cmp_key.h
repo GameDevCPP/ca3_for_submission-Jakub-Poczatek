@@ -1,5 +1,6 @@
 #pragma once
 #include <ecm.h>
+#include <engine.h>
 
 class KeyComponent: public Component {
 protected:

@@ -18,8 +18,8 @@ void Level1Scene::Load() {
 
   ls::loadLevelFile("../../res/Level1.bmp", 40.0f);
 
-  auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
-  ls::setOffset(Vector2f(0, ho));
+  //auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
+  ls::setOffset(Vector2f(0, 0));
 
   // Create player
   {
