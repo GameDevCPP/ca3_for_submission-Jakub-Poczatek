@@ -5,6 +5,7 @@
 #include "../components/cmp_hurt_player.h"
 #include "../components/cmp_enemy_ai.h"
 #include "../components/cmp_enemy_turret.h"
+#include "../components/cmp_enemy_aStar.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -21,12 +22,13 @@ static vector<shared_ptr<Entity>> turrets;
 void Level2Scene::Load() {
     cout << " Scene 2 Load" << endl;
 
-    ls::loadLevelFile("../../res/Level2.bmp", 40.0f);
+    ls::loadLevelFile("../../res/Level3.bmp", 40.0f);
 
     auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
-    ls::setOffset(Vector2f(0, ho));
+    ls::setOffset(Vector2f(0, 0));
 
     // Create player
+
     {
         player = makeEntity();
         player->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::START))[0]));
@@ -40,6 +42,7 @@ void Level2Scene::Load() {
     }
 
     // Create Key Pickup
+    /*
     key = makeEntity();
     key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
                      Vector2f(20, 20));
@@ -48,22 +51,23 @@ void Level2Scene::Load() {
     s->setShape<sf::CircleShape>(20.f);
     s->getShape().setFillColor(Color::Yellow);
     s->getShape().setOrigin({20.f, 20.f});
-
+    */
     // Create Ground Enemies
     for(auto tile: ls::findTiles(Color(ls::GENEMY))){
         auto enemy = makeEntity();
         enemy->setPosition(ls::getTilePosition(tile) + Vector2f(0, 24));
+        //enemy->setPosition(Vector2f(ls::getWidth()*20/2, ls::getHeight()*20/2));
         enemy->addComponent<HurtComponent>();
         auto s = enemy->addComponent<ShapeComponent>();
         s->setShape<sf::CircleShape>(16.f);
         s->getShape().setFillColor(Color::Red);
         s->getShape().setOrigin(Vector2f(16.f, 16.f));
-        enemy->addComponent<EnemyAIComponent>();
+        enemy->addComponent<EnemyAStarComponent>();
         enemies.push_back(enemy);
     }
 
     // Create Turrets
-    for (auto tile: ls::findTiles(Color(ls::TENEMY))){
+    /*for (auto tile: ls::findTiles(Color(ls::TENEMY))){
         auto turret = makeEntity();
         turret->setPosition(ls::getTilePosition(tile) + Vector2f(20, 0));
         auto s = turret->addComponent<ShapeComponent>();
@@ -73,7 +77,7 @@ void Level2Scene::Load() {
         turret->addComponent<EnemyTurretComponent>();
 
         turrets.push_back(turret);
-    }
+    }*/
 
     // Add physics colliders to level tiles.
     {
@@ -102,16 +106,16 @@ void Level2Scene::UnLoad() {
 }
 
 void Level2Scene::Update(const double& dt) {
-    sf::View view(sf::FloatRect({0.f, 0.f}, {500.f, 350}));
+    sf::View view(sf::FloatRect({0.f, 0.f}, {1920.f, 1080.f}));
     view.setCenter({player->getPosition().x, player->getPosition().y});
     Engine::GetWindow().setView(view);
     Scene::Update(dt);
-    if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
-        Engine::ChangeScene((Scene*)&level3);
-    }
-    if(!player->isAlive()){
-        Engine::ChangeScene((Scene*)&level2);
-    }
+    //if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
+    //    Engine::ChangeScene((Scene*)&level3);
+    //}
+    //if(!player->isAlive()){
+    //    Engine::ChangeScene((Scene*)&level2);
+    //}
 }
 
 void Level2Scene::Render() {
