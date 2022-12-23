@@ -1,5 +1,7 @@
 {
   "tileSize": 40,
   "viewWidth": 960,
-  "viewHeight": 540
+  "viewHeight": 540,
+  "windowWidth": 1280,
+  "windowHeight": 720
 }

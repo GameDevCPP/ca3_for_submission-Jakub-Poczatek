@@ -1,9 +1,10 @@
 {
-    "currentHealth": 2,
-    "currentLevel": 0,
-    "health": 5,
+    "currentHealth": 5,
+    "currentLevel": 1,
+    "difficulty": 1,
     "height": 30,
     "jumpHeight": -10,
+    "maxHealth": 5,
     "speed": 30,
     "width": 20
 }
