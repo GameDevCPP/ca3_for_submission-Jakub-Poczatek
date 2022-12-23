@@ -40,7 +40,6 @@ void Level3Scene::Load() {
     }
 
     // Create Key Pickup
-
     key = makeEntity();
     key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
                      Vector2f(20, 20));
@@ -49,20 +48,6 @@ void Level3Scene::Load() {
     s->setShape<sf::CircleShape>(20.f);
     s->getShape().setFillColor(Color::Yellow);
     s->getShape().setOrigin({20.f, 20.f});
-
-    // Create Ground Enemies
-    for(auto tile: ls::findTiles(Color(ls::GENEMY))){
-        auto enemy = makeEntity();
-        enemy->setPosition(ls::getTilePosition(tile) + Vector2f(0, 24));
-        //enemy->setPosition(Vector2f(ls::getWidth()*20/2, ls::getHeight()*20/2));
-        enemy->addComponent<HurtComponent>();
-        auto s = enemy->addComponent<ShapeComponent>();
-        s->setShape<sf::CircleShape>(16.f);
-        s->getShape().setFillColor(Color::Red);
-        s->getShape().setOrigin(Vector2f(16.f, 16.f));
-        enemy->addComponent<EnemyAIComponent>();
-        enemies.push_back(enemy);
-    }
 
     // Create Flying Enemies
     for(auto tile: ls::findTiles(Color(ls::FENEMY))){
@@ -76,19 +61,6 @@ void Level3Scene::Load() {
         s->getShape().setOrigin(Vector2f(8.f, 8.f));
         enemy->addComponent<EnemyAStarComponent>();
         enemies.push_back(enemy);
-    }
-
-    // Create Turrets
-    for (auto tile: ls::findTiles(Color(ls::TENEMY))){
-        auto turret = makeEntity();
-        turret->setPosition(ls::getTilePosition(tile) + Vector2f(20, 0));
-        auto s = turret->addComponent<ShapeComponent>();
-        s->setShape<sf::CircleShape>(16.f, 3);
-        s->getShape().setFillColor(Color::Red);
-        s->getShape().setOrigin(Vector2f(16.f, 16.f));
-        turret->addComponent<EnemyTurretComponent>();
-
-        turrets.push_back(turret);
     }
 
     // Add physics colliders to level tiles.
@@ -124,9 +96,11 @@ void Level3Scene::Update(const double& dt) {
     Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         Engine::ChangeScene((Scene*)&level1);
+        return;
     }
     if(!player->isAlive()){
         Engine::ChangeScene((Scene*)&level3);
+        return;
     }
 }
 

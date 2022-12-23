@@ -1,11 +1,10 @@
 #include "scene_level2.h"
 #include "../components/cmp_player_physics.h"
-#include "../components/cmp_sprite.h"
 #include "../components/cmp_key.h"
 #include "../components/cmp_hurt_player.h"
 #include "../components/cmp_enemy_ai.h"
 #include "../components/cmp_enemy_turret.h"
-#include "../components/cmp_enemy_aStar.h"
+#include "../components/cmp_entity_health.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -37,6 +36,7 @@ void Level2Scene::Load() {
 
         player->addTag("player");
         player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+        player->addComponent<EntityHealth>(1);
     }
 
     // Create Key Pickup
@@ -59,7 +59,7 @@ void Level2Scene::Load() {
         s->setShape<sf::CircleShape>(16.f);
         s->getShape().setFillColor(Color::Red);
         s->getShape().setOrigin(Vector2f(16.f, 16.f));
-        enemy->addComponent<EnemyAStarComponent>();
+        enemy->addComponent<EnemyAIComponent>();
         enemies.push_back(enemy);
     }
 
@@ -88,9 +88,6 @@ void Level2Scene::Load() {
         }
     }
 
-    //Simulate long loading times
-    //std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-
     cout << " Scene 2 Load Done" << endl;
     setLoaded(true);
 }
@@ -103,15 +100,17 @@ void Level2Scene::UnLoad() {
 }
 
 void Level2Scene::Update(const double& dt) {
-    sf::View view(sf::FloatRect({0.f, 0.f}, {1920.f, 1080.f}));
+    sf::View view(sf::FloatRect({0.f, 0.f}, {500.f, 350.f}));
     view.setCenter({player->getPosition().x, player->getPosition().y});
     Engine::GetWindow().setView(view);
     Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         Engine::ChangeScene((Scene*)&level3);
+        return;
     }
     if(!player->isAlive()){
         Engine::ChangeScene((Scene*)&level2);
+        return;
     }
 }
 

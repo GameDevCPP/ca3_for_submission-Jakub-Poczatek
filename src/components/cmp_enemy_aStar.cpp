@@ -11,7 +11,6 @@ AStar::GridWithWeights EnemyAStarComponent::makeGrid(){
 void EnemyAStarComponent::populateWalls(AStar::SquareGrid& grid){
     auto walls = ls::findTiles(sf::Color(ls::WALL));
     for (auto w: walls) {
-        grid._walls.insert({1, 1});
         grid._walls.insert(GridLocation{
             static_cast<int>(w.x), static_cast<int>(w.y)});
     }

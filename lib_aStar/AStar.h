@@ -76,7 +76,7 @@ public:
         SquareGrid(int width, int height);
         bool inBounds(GridLocation id) const;
         bool passable(GridLocation id) const;
-        std::vector<GridLocation> neightbors(GridLocation id) const;
+        std::vector<GridLocation> neighbors(GridLocation id) const;
     };
 
     struct GridWithWeights: SquareGrid{
@@ -121,7 +121,7 @@ public:
                 break;
             }
 
-            for (Location next : graph.neightbors(current)) {
+            for (Location next : graph.neighbors(current)) {
                 double new_cost = costSoFar[current] + graph.cost(current, next);
                 if (costSoFar.find(next) == costSoFar.end()
                     || new_cost < costSoFar[next]) {

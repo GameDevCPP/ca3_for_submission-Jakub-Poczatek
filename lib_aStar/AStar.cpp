@@ -20,7 +20,7 @@ bool AStar::SquareGrid::passable(GridLocation id) const {
     return _walls.find(id) == _walls.end();
 }
 
-std::vector<GridLocation> AStar::SquareGrid::neightbors(GridLocation id) const {
+std::vector<GridLocation> AStar::SquareGrid::neighbors(GridLocation id) const {
     std::vector<GridLocation> results;
 
     for (GridLocation dir: DIRS) {

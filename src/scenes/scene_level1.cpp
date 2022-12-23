@@ -77,6 +77,7 @@ void Level1Scene::Update(const double& dt) {
   Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         Engine::ChangeScene((Scene*)&level2);
+        return;
     }
 }
 
