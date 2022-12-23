@@ -33,4 +33,10 @@ struct JsonData{
         audio = Json::parse(f);
         f.close();
     }
+
+    static void updatePlayerData(){
+        std::ofstream f;
+        f.open("../../res/json/player.json");
+        f << std::setw(4) << playerData << std::endl;
+    }
 };

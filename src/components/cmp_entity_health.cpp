@@ -6,6 +6,8 @@ EntityHealth::EntityHealth(Entity* p, int health)
 void EntityHealth::adjustHealth(int amount) {
     if(!_cooldown){
         if(amount < 0) Audio::play(JsonData::audio["damage"]);
+        JsonData::playerData["currentHealth"] = (int) JsonData::playerData["currentHealth"] + amount;
+        JsonData::updatePlayerData();
         _cooldown = true;
         _health += amount;
         std::cout << "Player Health: " << _health << std::endl;

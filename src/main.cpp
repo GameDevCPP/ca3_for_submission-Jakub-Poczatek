@@ -19,5 +19,5 @@ Json JsonData::audio;
 int main() {
     JsonData::start();
     Audio::start(JsonData::audio["bg"]);
-    Engine::Start(1280, 720, "CA3",&menu);
+    Engine::Start(1920, 1080, "CA3",&menu);
 }

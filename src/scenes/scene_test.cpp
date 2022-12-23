@@ -40,7 +40,7 @@ void LevelTestScene::Load() {
         player->addTag("player");
         player->addComponent<PlayerPhysicsComponent>(Vector2f(JsonData::playerData["width"],
                                                               JsonData::playerData["height"]));
-        player->addComponent<EntityHealth>(JsonData::playerData["health"]);
+        player->addComponent<EntityHealth>(JsonData::playerData["currentHealth"]);
     }
 
     // Create Key Pickup
