@@ -6,6 +6,7 @@ using namespace sf;
 void PickupComponent::update(double dt) {
     if (auto pl = _player.lock()) {
         if (length(pl->getPosition() - _parent->getPosition()) < 25.0) {
+            Audio::play(JsonData::audio["pickup"]);
             _parent->setForDelete();
         }
     }

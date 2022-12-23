@@ -4,7 +4,7 @@ sf::Music Audio::_music;
 sf::SoundBuffer Audio::_buffer;
 sf::Sound Audio::_sound;
 
-void Audio::start(const char* path){
+void Audio::start(const std::string& path){
     _sound.setBuffer(_buffer);
     if(!_music.openFromFile(path))
         std::cout << "Music file can't be accessed" << std::endl;
@@ -13,7 +13,7 @@ void Audio::start(const char* path){
     _music.play();
 }
 
-void Audio::play(const char *path) {
+void Audio::play(const std::string& path) {
     if(!_buffer.loadFromFile(path))
         std::cout << "Audio file can't be accessed" << std::endl;
     _sound.play();

@@ -1,6 +1,7 @@
 #pragma once
 #include <ecm.h>
 #include <engine.h>
+#include "../JsonData.h"
 
 class PickupComponent: public Component {
 protected:

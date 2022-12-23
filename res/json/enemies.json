@@ -1,0 +1,11 @@
+{
+  "gEnemy": {
+    "radius": 16
+  },
+  "tEnemy": {
+    "radius": 16
+  },
+  "fEnemy": {
+    "radius": 8
+  }
+}

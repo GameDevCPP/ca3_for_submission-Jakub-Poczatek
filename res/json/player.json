@@ -1,5 +1,7 @@
 {
   "health": 5,
-  "jumpHeight": 10,
-  "speed": 5
+  "jumpHeight": -10,
+  "speed": 30,
+  "width": 20,
+  "height": 30
 }

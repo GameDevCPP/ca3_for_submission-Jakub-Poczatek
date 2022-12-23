@@ -7,6 +7,7 @@
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
+#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;

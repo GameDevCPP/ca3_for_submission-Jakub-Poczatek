@@ -2,6 +2,7 @@
 #include "system_physics.h"
 #include <LevelSystem.h>
 #include <SFML/Window/Keyboard.hpp>
+#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
@@ -70,7 +71,7 @@ void PlayerPhysicsComponent::update(double dt) {
     // disable friction while jumping
     setFriction(0.f);
   } else {
-    setFriction(0.5f);
+    setFriction(0.1f);
   }
 
   // Clamp velocity.
@@ -85,14 +86,15 @@ void PlayerPhysicsComponent::update(double dt) {
 PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p,
                                                const Vector2f& size)
     : PhysicsComponent(p, true, size) {
-  _size = sv2_to_bv2(size, true);
-  _maxVelocity = Vector2f(200.f, 400.f);
-  _groundspeed = 30.f;
-  _grounded = false;
-  _jumpHeight = -10.f;
-  setRestitution(0.f);
-  _body->SetSleepingAllowed(false);
-  _body->SetFixedRotation(true);
-  //Bullet items have higher-res collision detection
-  _body->SetBullet(true);
+
+    _size = sv2_to_bv2(size, true);
+    _maxVelocity = Vector2f(200.f, 400.f);
+    _groundspeed = JsonData::playerData["speed"];
+    _grounded = false;
+    _jumpHeight = JsonData::playerData["jumpHeight"];
+    setRestitution(0.f);
+    _body->SetSleepingAllowed(false);
+    _body->SetFixedRotation(true);
+    //Bullet items have higher-res collision detection
+    _body->SetBullet(true);
 }

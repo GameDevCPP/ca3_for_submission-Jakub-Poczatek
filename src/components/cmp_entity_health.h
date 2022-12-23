@@ -1,5 +1,6 @@
 #pragma once
 #include <engine.h>
+#include "../JsonData.h"
 
 class EntityHealth: public Component {
 protected:
