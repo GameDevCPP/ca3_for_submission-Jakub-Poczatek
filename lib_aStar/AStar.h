@@ -69,14 +69,14 @@ private:
 
 public:
     struct SquareGrid{
-        static std::array<GridLocation, 4> DIRS;
+        static std::array<GridLocation, 8> DIRS;
         int _width, _height;
         std::unordered_set<GridLocation> _walls;
 
         SquareGrid(int width, int height);
         bool inBounds(GridLocation id) const;
         bool passable(GridLocation id) const;
-        std::vector<GridLocation> neightbors(GridLocation id) const;
+        std::vector<GridLocation> neighbors(GridLocation id) const;
     };
 
     struct GridWithWeights: SquareGrid{
@@ -121,7 +121,7 @@ public:
                 break;
             }
 
-            for (Location next : graph.neightbors(current)) {
+            for (Location next : graph.neighbors(current)) {
                 double new_cost = costSoFar[current] + graph.cost(current, next);
                 if (costSoFar.find(next) == costSoFar.end()
                     || new_cost < costSoFar[next]) {

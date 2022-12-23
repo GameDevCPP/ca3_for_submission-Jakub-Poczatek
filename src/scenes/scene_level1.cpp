@@ -1,7 +1,8 @@
 #include "scene_level1.h"
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_sprite.h"
-#include "../components/cmp_key.h"
+#include "../components/cmp_pickup.h"
+#include "../components/cmp_entity_health.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -16,10 +17,10 @@ static shared_ptr<Entity> key;
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
 
-  ls::loadLevelFile("../../res/Level1.bmp", 40.0f);
+  ls::loadLevelFile("../../res/levelFiles/level1.bmp", 40.0f);
 
-  auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
-  ls::setOffset(Vector2f(0, ho));
+  //auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
+  ls::setOffset(Vector2f(0, 0));
 
   // Create player
   {
@@ -32,13 +33,14 @@ void Level1Scene::Load() {
 
     player->addTag("player");
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+    player->addComponent<EntityHealth>(1);
   }
 
   // Create Key Pickup
   key = makeEntity();
   key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
         Vector2f(20, 20));
-  key->addComponent<KeyComponent>();
+  key->addComponent<PickupComponent>();
   auto s = key->addComponent<ShapeComponent>();
   s->setShape<sf::CircleShape>(20.f);
   s->getShape().setFillColor(Color::Yellow);
@@ -77,6 +79,7 @@ void Level1Scene::Update(const double& dt) {
   Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         Engine::ChangeScene((Scene*)&level2);
+        return;
     }
 }
 

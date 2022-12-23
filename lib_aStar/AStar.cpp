@@ -1,8 +1,11 @@
 #include "AStar.h"
 
-std::array<GridLocation, 4> AStar::SquareGrid::DIRS = {
+std::array<GridLocation, 8> AStar::SquareGrid::DIRS = {
         GridLocation{1, 0}, GridLocation{-1, 0},
-        GridLocation{0, -1}, GridLocation{0, 1}
+        GridLocation{0, -1}, GridLocation{0, 1},
+        GridLocation{1, 1}, GridLocation{-1, -1},
+        GridLocation{1, -1}, GridLocation{-1, 1}
+
 };
 
 AStar::SquareGrid::SquareGrid(int width, int height)
@@ -17,7 +20,7 @@ bool AStar::SquareGrid::passable(GridLocation id) const {
     return _walls.find(id) == _walls.end();
 }
 
-std::vector<GridLocation> AStar::SquareGrid::neightbors(GridLocation id) const {
+std::vector<GridLocation> AStar::SquareGrid::neighbors(GridLocation id) const {
     std::vector<GridLocation> results;
 
     for (GridLocation dir: DIRS) {
