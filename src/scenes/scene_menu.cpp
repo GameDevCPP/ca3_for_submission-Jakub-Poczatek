@@ -3,12 +3,10 @@
 #include "../game.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
-#include <SFML/Audio.hpp>
+#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
-
-sf::Music music;
 
 void MenuScene::Load() {
     cout << "Menu Load \n";
@@ -18,19 +16,24 @@ void MenuScene::Load() {
         "Platformer\nPress Space to Start");
     }
     setLoaded(true);
-    if (!music.openFromFile("../../res/audio/background.wav"))
-        cout << "Audio not loaded" << endl;
-    music.play();
-    music.setLoop(true);
-    music.setVolume(10.f);
 }
 
 void MenuScene::Update(const double& dt) {
-    // cout << "Menu Update "<<dt<<"\n";
-
-    if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
-    Engine::ChangeScene(&levelTest);
-    }
-
     Scene::Update(dt);
+    if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
+        switch((int) JsonData::playerData["currentLevel"]){
+            case 1:
+                Engine::ChangeScene(&level1);
+                return;
+            case 2:
+                Engine::ChangeScene(&level2);
+                return;
+            case 3:
+                Engine::ChangeScene(&level3);
+                return;
+            case 0:
+                Engine::ChangeScene(&levelTest);
+                return;
+        }
+    }
 }

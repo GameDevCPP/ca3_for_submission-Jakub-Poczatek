@@ -9,7 +9,7 @@ protected:
     static sf::Sound _sound;
 
 public:
-    static void play(const char* path);
-    static void start(const char* path);
+    static void play(const std::string& path);
+    static void start(const std::string& path);
     ~Audio();
 };

@@ -1,12 +1,12 @@
 #include "scene_level1.h"
 #include "../components/cmp_player_physics.h"
-#include "../components/cmp_sprite.h"
 #include "../components/cmp_pickup.h"
 #include "../components/cmp_entity_health.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
+#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
@@ -79,6 +79,8 @@ void Level1Scene::Update(const double& dt) {
   Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         Engine::ChangeScene((Scene*)&level2);
+        JsonData::playerData["currentLevel"] = 2;
+        JsonData::updatePlayerData();
         return;
     }
 }

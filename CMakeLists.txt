@@ -4,7 +4,7 @@ project(CA3)
 file(GLOB_RECURSE SOURCES src/*.cpp src/*.h)
 file(GLOB_RECURSE CMPNTS src/components/*.cpp src/components/*.h)
 file(GLOB_RECURSE SCNS src/scenes/*.cpp src/scenes/*.h)
-add_executable(CA3 ${SOURCES} ${RESOURCE_FILES} src/components/cmp_health_pickup.cpp src/components/cmp_health_pickup.h src/scenes/scene_test.cpp src/scenes/scene_test.h)
+add_executable(CA3 ${SOURCES} ${RESOURCE_FILES} src/components/cmp_health_pickup.cpp src/components/cmp_health_pickup.h src/scenes/scene_test.cpp src/scenes/scene_test.h src/JsonData.h)
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
 target_link_libraries(CA3 lib_engine)
@@ -48,7 +48,7 @@ file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
 file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
 add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/" PUBLIC SYSTEM ${B2D_INCS} )
-target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio lib_aStar lib_audio)
+target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio lib_aStar lib_audio lib_json)
 
 ## Maths lib
 add_library(lib_maths INTERFACE)
@@ -77,6 +77,11 @@ file(GLOB_RECURSE SOURCE_FILES lib_audio/*.cpp lib_audio/*.h)
 add_library(lib_audio STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_audio INTERFACE "${CMAKE_SOURCE_DIR}/lib_audio/" )
 target_link_libraries(lib_audio sfml-audio)
+
+## JSON lib ##
+add_library(lib_json INTERFACE lib_json/json.h)
+target_sources(lib_json INTERFACE "${CMAKE_SOURCE_DIR}/lib_json/json.h")
+target_include_directories(lib_json INTERFACE "${CMAKE_SOURCE_DIR}/lib_json" INTERFACE ${SFML_INCS})
 
 ## ECM lib
 file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
