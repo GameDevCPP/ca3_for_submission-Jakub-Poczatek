@@ -7,6 +7,7 @@ void EntityHealth::adjustHealth(int amount) {
     if(!_cooldown){
         _cooldown = true;
         _health += amount;
+        std::cout << "Player Health: " << _health << std::endl;
         if(_health <= 0) _parent->setForDelete();
     }
 }

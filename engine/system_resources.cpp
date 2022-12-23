@@ -30,9 +30,9 @@ namespace Resources {
     return buf;
   };
 
-  template <> // explicit specialization for T = Music
-  std::shared_ptr<sf::Music> load(const std::string& name) {
-    auto music = std::make_shared<sf::Music>();
+  template <> // explicit specialization for T = audio
+  std::shared_ptr<sf::audio> load(const std::string& name) {
+    auto music = std::make_shared<sf::audio>();
     if (!music->openFromFile("res/sound/" + name)) {
       throw("not found: " + name);
     };

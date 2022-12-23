@@ -19,14 +19,15 @@ public:
     typedef sf::Color Tile;
 
     enum TILES {
-        EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(), // White
-        START = sf::Color(0.f, 0.f, 255.f).toInteger(),     // Blue
-        WALL = sf::Color(0.f, 255.f, 0.f).toInteger(),      // Green
-        END = sf::Color(255.f, 0.f, 0.f).toInteger(),       // Red
-        KEY = sf::Color(255.f, 255.f, 0.f).toInteger(),     // Yellow
-        GENEMY = sf::Color(255.f, 0.f, 255.f).toInteger(),  // Pink
-        TENEMY = sf::Color(0.f, 255.f, 255.f).toInteger(),  // Aqua
+        EMPTY = sf::Color(255.f, 255.f, 255.f).toInteger(),   // White
+        START = sf::Color(0.f, 0.f, 255.f).toInteger(),       // Blue
+        WALL = sf::Color(0.f, 255.f, 0.f).toInteger(),        // Green
+        END = sf::Color(255.f, 0.f, 0.f).toInteger(),         // Red
+        KEY = sf::Color(255.f, 255.f, 0.f).toInteger(),       // Yellow
+        GENEMY = sf::Color(255.f, 0.f, 255.f).toInteger(),    // Pink
+        TENEMY = sf::Color(0.f, 255.f, 255.f).toInteger(),    // Aqua
         FENEMY = sf::Color(125.f, 125.f, 255.f).toInteger(),  // Purple
+        HPICKUP = sf::Color(255.f, 125.f, 125.f).toInteger(), //
     };
 
     static Tile getTile(sf::Vector2ul);

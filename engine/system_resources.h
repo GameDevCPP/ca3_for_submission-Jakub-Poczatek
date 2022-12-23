@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #ifdef SOUND
-#include <SFML/Audio/Sound.hpp>
+#include <SFML/audio/Sound.hpp>
 
 #endif // SOUND
 
@@ -27,8 +27,8 @@ std::shared_ptr<sf::Texture> load(const std::string& name);
 template <> // explicit specialization for T = SoundBuffer
 std::shared_ptr<sf::SoundBuffer> load(const std::string& name);
 
-template <> // explicit specialization for T = Music
-std::shared_ptr<sf::Music> load(const std::string& name);
+template <> // explicit specialization for T = audio
+std::shared_ptr<sf::audio> load(const std::string& name);
 #endif // SOUND
 
 template <typename T>

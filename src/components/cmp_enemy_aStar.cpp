@@ -29,7 +29,7 @@ void EnemyAStarComponent::update(double dt) {
 
     if(std::abs((float) currentPoint.x - _parent->getPosition().x/ls::getTileSize()) < 0.5f
     && std::abs((float) currentPoint.y - _parent->getPosition().y/ls::getTileSize()) < 0.5f
-    && _pathCounter < _path.size()-1) {
+    && _pathCounter < _path.size()) {
     _pathCounter++;
     }
 
@@ -41,9 +41,6 @@ void EnemyAStarComponent::update(double dt) {
 
 void EnemyAStarComponent::calculatePath() {
     sf::Vector2f target;
-    _grid = makeGrid();
-    _path.clear();
-    _pathCounter = 0;
 
     if (auto pl = _player.lock()) {
         target = sf::Vector2f(std::floor(pl->getPosition().x/ls::getTileSize()),
@@ -59,12 +56,17 @@ void EnemyAStarComponent::calculatePath() {
     std::unordered_map<GridLocation, double> cost_so_far;
     AStar::aStarSearch(_grid, start, goal, came_from, cost_so_far);
     auto tempPath = AStar::reconstructPath(start, goal, came_from);
-    if(!tempPath.empty()) std::copy(tempPath.begin(), tempPath.end(), std::back_inserter(_path));
+    if(!tempPath.empty()) {
+        _path.clear();
+        std::copy(tempPath.begin(), tempPath.end(), std::back_inserter(_path));
+        _pathCounter = 1;
+    }
 }
 
 EnemyAStarComponent::EnemyAStarComponent(Entity *p) :
         ActorMovementComponent(p), _grid(makeGrid()), _speed(100.f),
-        _direction(1, 1), _pathCounter(0),
+        _direction(1, 1), _pathCounter(1),
         _player(_parent->scene->ents.find("player")[0]), _dtCounter(0){
+    _grid = makeGrid();
     calculatePath();
 }

@@ -1,11 +1,10 @@
 #include "scene_level3.h"
 #include "../components/cmp_player_physics.h"
-#include "../components/cmp_sprite.h"
-#include "../components/cmp_key.h"
+#include "../components/cmp_pickup.h"
 #include "../components/cmp_hurt_player.h"
 #include "../components/cmp_enemy_ai.h"
-#include "../components/cmp_enemy_turret.h"
 #include "../components/cmp_enemy_aStar.h"
+#include "../components/cmp_entity_health.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -16,7 +15,6 @@ using namespace sf;
 static shared_ptr<Entity> player;
 static shared_ptr<Entity> key;
 static vector<shared_ptr<Entity>> enemies;
-static vector<shared_ptr<Entity>> turrets;
 
 void Level3Scene::Load() {
     cout << " Scene 3 Load" << endl;
@@ -37,13 +35,14 @@ void Level3Scene::Load() {
 
         player->addTag("player");
         player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+        player->addComponent<EntityHealth>(1);
     }
 
     // Create Key Pickup
     key = makeEntity();
     key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
                      Vector2f(20, 20));
-    key->addComponent<KeyComponent>();
+    key->addComponent<PickupComponent>();
     auto s = key->addComponent<ShapeComponent>();
     s->setShape<sf::CircleShape>(20.f);
     s->getShape().setFillColor(Color::Yellow);
