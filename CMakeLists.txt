@@ -48,7 +48,7 @@ file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
 file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
 add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/" PUBLIC SYSTEM ${B2D_INCS} )
-target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio lib_aStar)
+target_link_libraries(lib_engine lib_tile_level_loader_rgb lib_maths lib_ecm Box2D sfml-graphics sfml-audio lib_aStar lib_audio)
 
 ## Maths lib
 add_library(lib_maths INTERFACE)
@@ -71,6 +71,12 @@ target_link_libraries(lib_bmp_loader lib_maths sfml-graphics)
 file(GLOB_RECURSE SOURCE_FILES lib_aStar/*.cpp lib_aStar/*.h)
 add_library(lib_aStar STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
 target_include_directories(lib_aStar INTERFACE "${CMAKE_SOURCE_DIR}/lib_aStar/" )
+
+## Audio lib ##
+file(GLOB_RECURSE SOURCE_FILES lib_audio/*.cpp lib_audio/*.h)
+add_library(lib_audio STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_audio INTERFACE "${CMAKE_SOURCE_DIR}/lib_audio/" )
+target_link_libraries(lib_audio sfml-audio)
 
 ## ECM lib
 file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)

@@ -5,6 +5,7 @@
 #include <maths.h>
 #include <mutex>
 #include <string>
+#include <audio.h>
 
 class Scene {
 public:

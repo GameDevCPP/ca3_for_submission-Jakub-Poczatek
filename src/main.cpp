@@ -2,8 +2,6 @@
 #include "game.h"
 #include "scenes/scene_menu.h"
 #include "bmp.h"
-#include <SFML/Audio.hpp>
-
 using namespace std;
 
 MenuScene menu;
@@ -13,7 +11,6 @@ Level3Scene level3;
 LevelTestScene levelTest;
 
 int main() {
+    Audio::start("../../res/audio/background.wav");
     Engine::Start(1280, 720, "CA3",&menu);
-    //sf::SoundBuffer buffer;
-    //if (!buffer.loadFromFile())
 }
