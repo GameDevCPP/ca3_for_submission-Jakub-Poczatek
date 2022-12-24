@@ -63,6 +63,18 @@ The game utilizes a simple art style using simple shapes and colours.
 ## Audio ##
 There is 3 audio files total, a background music track and 2 sounds for taking damage and collecting pickups. Sounds are managed by the audio lib that I wrote using SFML::Audio documentation. 
 
+# Externals #
+
+## Repository Usage ##
+Git was used as the version control system used to manage the project. Branches were created for each specific set of features and later merged into main when their functionality was fully implemented. Git Submodules were not used as there wasn't a need for them since no outside GitHub repos were used.
+
+## Game/Project Management ##
+Trello was used to manage the project progress and assign the next set of tasks.
+Trellow URL: https://trello.com/b/5lj21LzW/c-assignment 
+
+## Video Walkthrough ##
+Youtube URL: 
+
 # Technology #
 In this section I will go through the technological aspects of the game that I designed and/or implemented.
 
@@ -105,4 +117,62 @@ Turrets now utilize an object pool for handling their bullets and as such the li
 This component is an improved version of the EnemyAIComponent that is used in it's place when difficulty:hard is used instead of difficulty:easy. It maintains all the core functionality of the previous component while also adding player tracking by changing its _direction based on it's position to the player.
 
 ### EnemyAStarComponent: New ###
-This component contains a substantial amount of functionality 
+This component contains a substantial amount of functionality, handling the full implementation of the lib_aStar library. On startup it initializes a _grid containing the layout of the whole level, letting the AI know where the walls are so it can avoid them. Once a path is calculating, every frame the AI will come closer to its next path point, when it get's close enough, the _pathCounter is incremented and the next path point is sought out. To save on performance, the path to player calculation is only done every half a second using delta time and a simple counter.
+
+### EnemyTurretComponent: Refactored ###
+An object pool for bullets has been created. Now instead of creating new bullets everytime one is fired and then that bullet deleting itself after a specific amount of time. The turrets get assigned a bullet pool of size 5 and cycles through it's bullets, changing their position and applying a physics impule when fired. 
+
+### EntityHealth: New ###
+EntityHealth is primarly used for the player, with future plans of implementing it to tougher enemies. The EntityHealth gives the player a set amount of life that the enemies need to eat through before the player dies and the level is reset. The health in this component can also be increased by the player collecting health pickups. There is a cooldown of 1second before the player can take damage again. If the adjustHealth function identifies the _health modifier as negative, it will play a sound to let the player know that they took damage.
+
+### HealthPickup: New ###
+Part of the new "PickupComponent" family. The health pickup adds functionality to the base component by adding health to the player's EntityHealth object when its desctructor is called (when the base PickupComponent's update() function detects collision with player and set's itself for deletion).
+
+### HurtComponent: Refactored ###
+The hurt component no longer destroys the entity it's attached to, allowing for enemies to stay alive after dealing damage. Instead of deleting the player when collision is detect, the hurt component now simply damages them by adjusting their EntityHealth component.
+
+### PickupComponent Family: New ###
+The PickupComponent is the base component for a family of components all utilizing it's player collision detection capability. It is also directly use by the key item in each level, as that pickup doesn't need any further functionality. The component now also plays a sound when collision is detected. 
+
+### PlayerPhysicsComponent: Refactored ###
+Json data functionality implemented for certain aspects. The player's jump height, run speed and restitution have all been adjusted.
+
+## AI ##
+The game now features 3 types of AI.
+- The base dumb AI, as supplied in EntityAIComponent.
+- A smarter targeted AI. Still only moves left and right, but can target the player.
+- A* AI, flying enemies only, is always seeking the player.
+
+## Data Driven Functionality ##
+a JsonData class was implemented to handle all JSON data functionality in the game. This includes handling the paths for all audio in the game. The main use of this class is to handle the setting up of each level, containing data such as player/enemy sizes, tile sizes, view sizes etc. This allows repeating data to be changed in the JSON file and it taking effect throughout the project. 
+
+The JsonData object is also the core of the save/load functionality. The playerData.json file contains variables for the current difficulty, level and player health. These variables are written to and fetched from through all the levels and some of the components in the project. 
+
+## Sound and Music ##
+A seperate library was introduced to handle the playing of all music and sound instances throughout the game. Audio file paths are handles by the JsonData class. 3 Distinct Audio's present throughout the game: background music, pickup audio, player taking damage audio.
+
+## Memory Management ##
+Smart pointers and memory allocation used throughout the project. Examples include:
+- shared pointers
+- unique pointers
+- weak pointers
+
+## Management of Game Resources ##
+The following guidelines have been used:
+- Flyweight is used througout the project in components and scenes.
+- Using JsonData as a resource manager for audio.
+
+## Advanced C++ ##
+This is some of the C++ functionality is used througout:
+- unordered maps
+- vectors
+- lambda conditionals
+- smart pointers: shared, unique, weak
+- [[ maybe unused ]] tag used for class members in the bmp library. Used to tell the compiler to disregard the fact that these variables are unused. C++17 feature.
+- [[ likely ]] tags used in conditionals to inform the compiler which option is more likely than others. C++20 feature.
+- [[ nodiscard ]] tag used to inform the compiler that a function or has has its attribute and its return value is discarded.
+
+## Design Patterns ##
+The following design patterns are utilized:
+- Flyweight used for components and scenes.
+- Object pools used for the turret component.

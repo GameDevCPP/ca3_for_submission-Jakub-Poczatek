@@ -25,14 +25,14 @@ void EnemyTurretComponent::fire() {
     p->impulse(sf::rotate(Vector2f(0, 15.f), -_parent->getRotation()));
 
     _bulletCounter++;
-    if(_bulletCounter > 1){
+    if(_bulletCounter > 4){
         _bulletCounter = 0;
     }
 }
 
 EnemyTurretComponent::EnemyTurretComponent(Entity* p)
     : Component(p), _firetime(2.f), _bulletCounter(0) {
-    for (int i = 0; i < 2; i++){
+    for (int i = 0; i < 5; i++){
         auto bullet = _parent->scene->makeEntity();
         bullet->setPosition(Vector2f(-1000, 1000));
         bullet->addComponent<HurtComponent>();
