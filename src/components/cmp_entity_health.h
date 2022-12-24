@@ -13,6 +13,7 @@ public:
     void render() override {};
 
     void adjustHealth(int amount);
+    int getHealth() const;
     EntityHealth(Entity* p, int health);
     EntityHealth() = delete;
 };
