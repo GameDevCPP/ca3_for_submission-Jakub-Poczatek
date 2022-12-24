@@ -1,5 +1,6 @@
 #pragma once
 #include <engine.h>
+#include "../JsonData.h"
 
 class EntityHealth: public Component {
 protected:
@@ -12,6 +13,7 @@ public:
     void render() override {};
 
     void adjustHealth(int amount);
+    int getHealth() const;
     EntityHealth(Entity* p, int health);
     EntityHealth() = delete;
 };

@@ -1,0 +1,8 @@
+{
+  "key" : {
+    "radius": 20
+  },
+  "health": {
+    "radius": 10
+  }
+}

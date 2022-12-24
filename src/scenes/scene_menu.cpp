@@ -3,26 +3,65 @@
 #include "../game.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
 
+int difficulty = 1;
+
 void MenuScene::Load() {
-  cout << "Menu Load \n";
-  {
-    auto txt = makeEntity();
-    auto t = txt->addComponent<TextComponent>(
-        "Platformer\nPress Space to Start");
-  }
-  setLoaded(true);
+    cout << "Menu Load \n";
+    {
+    auto heading = makeEntity();
+    auto t = heading->addComponent<TextComponent>(
+            "Second Thoughts\n"
+            "0 -> Easy || 1 -> Hard (default)\n"
+            "Space -> New Game (default) || Enter -> Continue"
+            );
+    }
+    setLoaded(true);
 }
 
 void MenuScene::Update(const double& dt) {
-  // cout << "Menu Update "<<dt<<"\n";
+    sf::View view(sf::FloatRect({0.f, 0.f},
+                                {JsonData::generalData["windowWidth"],
+                                 JsonData::generalData["windowHeight"]}));
+    Engine::GetWindow().setView(view);
+    Scene::Update(dt);
+    // Handle Difficulty
+    if(sf::Keyboard::isKeyPressed(Keyboard::Num1)) {
+        difficulty = 1;
+        cout << "Hard Mode Chosen" << endl;
+    }
+    if(sf::Keyboard::isKeyPressed(Keyboard::Num0)) {
+        difficulty = 0;
+        cout << "Easy Mode Chosen" << endl;
+    }
 
-  if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
-    Engine::ChangeScene(&levelTest);
-  }
+    if(sf::Keyboard::isKeyPressed(Keyboard::Space)){
+        JsonData::playerData["difficulty"] = difficulty;
+        JsonData::playerData["currentHealth"] = JsonData::playerData["maxHealth"];
+        JsonData::playerData["currentLevel"] = 1;
+        JsonData::updatePlayerData();
+        Engine::ChangeScene(&level1);
+        return;
+    }
 
-  Scene::Update(dt);
+    if (sf::Keyboard::isKeyPressed(Keyboard::Enter)) {
+        switch((int) JsonData::playerData["currentLevel"]){
+            case 1:
+                Engine::ChangeScene(&level1);
+                return;
+            case 2:
+                Engine::ChangeScene(&level2);
+                return;
+            case 3:
+                Engine::ChangeScene(&level3);
+                return;
+            case 0:
+                Engine::ChangeScene(&levelTest);
+                return;
+        }
+    }
 }
