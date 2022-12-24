@@ -21,7 +21,7 @@ static vector<shared_ptr<Entity>> enemies;
 void LevelTestScene::Load() {
     cout << " Scene Test Load" << endl;
 
-    ls::loadLevelFile("../../res/levelFiles/levelTest.bmp", (float) JsonData::generalData["tileSize"]);
+    ls::loadLevelFile("../../res/levelFiles/level3.bmp", (float) JsonData::generalData["tileSize"]);
     ls::setOffset(Vector2f(0, 0));
 
     // Create player

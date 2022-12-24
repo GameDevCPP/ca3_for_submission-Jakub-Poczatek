@@ -2,11 +2,11 @@
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_pickup.h"
 #include "../components/cmp_entity_health.h"
+#include "../components/cmp_text.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
-#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
@@ -34,7 +34,7 @@ void Level1Scene::Load() {
         player->addTag("player");
         player->addComponent<PlayerPhysicsComponent>(Vector2f(JsonData::playerData["width"],
                                                               JsonData::playerData["height"]));
-        player->addComponent<EntityHealth>(JsonData::playerData["currentHealth"]);
+        auto playerHealth = player->addComponent<EntityHealth>(JsonData::playerData["currentHealth"]);
     }
 
     // Create Key Pickup
@@ -82,12 +82,15 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
+    // Set the view
     sf::View view(sf::FloatRect({0.f, 0.f},
                                 {JsonData::generalData["viewWidth"],
                                  JsonData::generalData["viewHeight"]}));
-  view.setCenter({player->getPosition().x, player->getPosition().y});
-  Engine::GetWindow().setView(view);
-  Scene::Update(dt);
+
+    view.setCenter({player->getPosition().x, player->getPosition().y});
+    Engine::GetWindow().setView(view);
+
+    Scene::Update(dt);
     if (ls::getTileAt(player->getPosition()) == Color(ls::END) && !key->isAlive()) {
         JsonData::playerData["currentLevel"] = 2;
         JsonData::updatePlayerData();
@@ -97,6 +100,6 @@ void Level1Scene::Update(const double& dt) {
 }
 
 void Level1Scene::Render() {
-  ls::render(Engine::GetWindow());
-  Scene::Render();
+    ls::render(Engine::GetWindow());
+    Scene::Render();
 }

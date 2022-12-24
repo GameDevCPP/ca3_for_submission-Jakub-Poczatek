@@ -19,7 +19,7 @@ static vector<shared_ptr<Entity>> enemies;
 void Level3Scene::Load() {
     cout << " Scene 3 Load" << endl;
 
-    ls::loadLevelFile("../../res/Level3.bmp", 40.0f);
+    ls::loadLevelFile("../../res/LevelBackup.bmp", 40.0f);
 
     //auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
     ls::setOffset(Vector2f(0, 0));
