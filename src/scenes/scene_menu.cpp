@@ -24,6 +24,10 @@ void MenuScene::Load() {
 }
 
 void MenuScene::Update(const double& dt) {
+    sf::View view(sf::FloatRect({0.f, 0.f},
+                                {JsonData::generalData["windowWidth"],
+                                 JsonData::generalData["windowHeight"]}));
+    Engine::GetWindow().setView(view);
     Scene::Update(dt);
     // Handle Difficulty
     if(sf::Keyboard::isKeyPressed(Keyboard::Num1)) {

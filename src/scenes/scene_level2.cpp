@@ -102,7 +102,8 @@ void Level2Scene::Load() {
         }
     }
 
-    cout << " Scene 2 Load Done" << endl;
+    cout << " Scene 2 Load Done" << endl
+         << "Player Health: " << player->get_components<EntityHealth>()[0]->getHealth() << endl;
     setLoaded(true);
 }
 

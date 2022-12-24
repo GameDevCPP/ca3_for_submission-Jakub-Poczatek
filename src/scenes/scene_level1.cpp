@@ -70,7 +70,8 @@ void Level1Scene::Load() {
 
   //Simulate long loading times
   std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-  cout << " Scene 1 Load Done" << endl;
+  cout << " Scene 1 Load Done" << endl
+  << "Player Health: " << player->get_components<EntityHealth>()[0]->getHealth() << endl;
   setLoaded(true);
 }
 
