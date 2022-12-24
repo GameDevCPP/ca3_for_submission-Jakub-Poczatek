@@ -11,4 +11,3 @@ public:
     HealthPickup(Entity* p);
     ~HealthPickup();
 };
-

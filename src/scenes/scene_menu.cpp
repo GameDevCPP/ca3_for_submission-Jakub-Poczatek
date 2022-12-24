@@ -51,7 +51,7 @@ void MenuScene::Update(const double& dt) {
     if (sf::Keyboard::isKeyPressed(Keyboard::Enter)) {
         switch((int) JsonData::playerData["currentLevel"]){
             case 1:
-                Engine::ChangeScene(&level1);
+                [[likely]] Engine::ChangeScene(&level1);
                 return;
             case 2:
                 Engine::ChangeScene(&level2);
