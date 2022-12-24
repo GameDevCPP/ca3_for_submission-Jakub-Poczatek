@@ -5,6 +5,7 @@
 #include "../components/cmp_enemy_ai.h"
 #include "../components/cmp_enemy_turret.h"
 #include "../components/cmp_entity_health.h"
+#include "../components/cmp_enemy_ai_targeted.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -19,7 +20,7 @@ static vector<shared_ptr<Entity>> enemies;
 void Level2Scene::Load() {
     cout << " Scene 2 Load" << endl;
 
-    ls::loadLevelFile("../../res/levelFiles/Level2.bmp", 40.0f);
+    ls::loadLevelFile("../../res/levelFiles/Level2.bmp", (float) JsonData::generalData["tileSize"]);
     ls::setOffset(Vector2f(0, 0));
 
     // Create player
@@ -68,7 +69,8 @@ void Level2Scene::Load() {
         s->getShape().setFillColor(Color(ls::GENEMY));
         s->getShape().setOrigin(Vector2f(JsonData::enemies["gEnemy"]["radius"],
                                          JsonData::enemies["gEnemy"]["radius"]));
-        enemy->addComponent<EnemyAIComponent>();
+        if((int) JsonData::playerData["difficulty"] == 0) enemy->addComponent<EnemyAIComponent>();
+        else enemy->addComponent<EnemyTargetedAIComponent>();
         enemies.push_back(enemy);
     }
 

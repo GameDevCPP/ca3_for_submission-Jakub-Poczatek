@@ -7,6 +7,7 @@
 #include "../components/cmp_entity_health.h"
 #include "../components/cmp_health_pickup.h"
 #include "../components/cmp_enemy_turret.h"
+#include "../components/cmp_enemy_ai_targeted.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -85,7 +86,8 @@ void Level3Scene::Load() {
         s->getShape().setFillColor(Color(ls::GENEMY));
         s->getShape().setOrigin(Vector2f(JsonData::enemies["gEnemy"]["radius"],
                                          JsonData::enemies["gEnemy"]["radius"]));
-        enemy->addComponent<EnemyAIComponent>();
+        if(JsonData::playerData["difficulty"] == 0) enemy->addComponent<EnemyAIComponent>();
+        else enemy->addComponent<EnemyTargetedAIComponent>();
         enemies.push_back(enemy);
     }
 

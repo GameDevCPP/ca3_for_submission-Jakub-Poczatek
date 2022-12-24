@@ -1,7 +1,7 @@
 {
-    "currentHealth": 3,
-    "currentLevel": 3,
-    "difficulty": 1,
+    "currentHealth": 4,
+    "currentLevel": 1,
+    "difficulty": 0,
     "height": 30,
     "jumpHeight": -10,
     "maxHealth": 5,
