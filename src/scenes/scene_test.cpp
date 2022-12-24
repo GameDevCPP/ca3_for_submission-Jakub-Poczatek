@@ -10,7 +10,6 @@
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
-#include "../JsonData.h"
 
 using namespace std;
 using namespace sf;
@@ -23,7 +22,6 @@ void LevelTestScene::Load() {
     cout << " Scene Test Load" << endl;
 
     ls::loadLevelFile("../../res/levelFiles/levelTest.bmp", (float) JsonData::generalData["tileSize"]);
-
     ls::setOffset(Vector2f(0, 0));
 
     // Create player
@@ -44,16 +42,20 @@ void LevelTestScene::Load() {
     }
 
     // Create Key Pickup
-    key = makeEntity();
-    key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
-                     Vector2f((float) JsonData::generalData["tileSize"] - (float) JsonData::pickups["key"]["radius"],
-                              (float) JsonData::generalData["tileSize"] - (float) JsonData::pickups["key"]["radius"]));
-    key->addComponent<PickupComponent>();
-    auto s = key->addComponent<ShapeComponent>();
-    s->setShape<sf::CircleShape>(JsonData::pickups["key"]["radius"]);
-    s->getShape().setFillColor(Color(ls::KEY));
-    s->getShape().setOrigin({JsonData::pickups["key"]["radius"],
-                             JsonData::pickups["key"]["radius"]});
+    {
+        key = makeEntity();
+        key->setPosition(ls::getTilePosition(ls::findTiles(Color(ls::KEY))[0]) +
+                         Vector2f(
+                                 (float) JsonData::generalData["tileSize"] - (float) JsonData::pickups["key"]["radius"],
+                                 (float) JsonData::generalData["tileSize"] -
+                                 (float) JsonData::pickups["key"]["radius"]));
+        key->addComponent<PickupComponent>();
+        auto s = key->addComponent<ShapeComponent>();
+        s->setShape<sf::CircleShape>(JsonData::pickups["key"]["radius"]);
+        s->getShape().setFillColor(Color(ls::KEY));
+        s->getShape().setOrigin({JsonData::pickups["key"]["radius"],
+                                 JsonData::pickups["key"]["radius"]});
+    }
 
     // Create Health Pickups
     for(auto tile: ls::findTiles(Color(ls::HPICKUP))){
