@@ -73,7 +73,7 @@ Trello was used to manage the project progress and assign the next set of tasks.
 Trellow URL: https://trello.com/b/5lj21LzW/c-assignment 
 
 ## Video Walkthrough ##
-Youtube URL: 
+Youtube URL: https://youtu.be/SKgmpb-Q_bE 
 
 # Technology #
 In this section I will go through the technological aspects of the game that I designed and/or implemented.
